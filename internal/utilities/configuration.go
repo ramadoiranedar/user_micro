@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var flags = struct {
+var FLAGS = struct {
 	AppConfig string `long:"config" description:"main application configuration YAML path"`
 }{}
 
@@ -19,16 +19,16 @@ func InitConfiguration(logger logrus.FieldLogger) *viper.Viper {
 	logFields.Info("init configuration")
 
 	cfg := viper.New()
-	cfg.SetConfigName(filepath.Base(flags.AppConfig))
+	cfg.SetConfigName(filepath.Base(FLAGS.AppConfig))
 	cfg.SetConfigType("yaml")
-	cfg.AddConfigPath(filepath.Dir(flags.AppConfig))
+	cfg.AddConfigPath(filepath.Dir(FLAGS.AppConfig))
 	cfg.AddConfigPath("./config/")
 	cfg.AddConfigPath("./etc/")
 	cfg.AddConfigPath("./")
 
 	err := cfg.ReadInConfig()
 	if err != nil {
-		logFields.Errorf("invalid app config at %s", flags.AppConfig)
+		logFields.Errorf("invalid app config at %s", FLAGS.AppConfig)
 		os.Exit(1)
 	}
 
