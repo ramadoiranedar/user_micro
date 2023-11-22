@@ -21,7 +21,7 @@ type Runtime struct {
 	Db  *gorm.DB
 }
 
-func NewRuntime() (runtime *Runtime, err error) {
+func InitRuntime() (runtime *Runtime) {
 	var (
 		logger    = InitLogger()
 		config    = InitConfiguration(logger)
