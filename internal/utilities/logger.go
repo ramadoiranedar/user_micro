@@ -14,19 +14,18 @@ func InitLogger() logrus.FieldLogger {
 	customFormatter.FullTimestamp = true
 	logrus.SetFormatter(customFormatter)
 	logrus.SetLevel(logrus.DebugLevel)
-	CreateLogFields(logrus.StandardLogger(), "utilities-logger", TraceLog()).Info("init logger")
+	CreateLogFields(logrus.StandardLogger(), TraceLog()).Info("setup logger")
 
 	return logrus.StandardLogger()
 }
 
-func CreateLogFields(logger logrus.FieldLogger, moduleName, trace string) *logrus.Entry {
+func CreateLogFields(logger logrus.FieldLogger, trace string) *logrus.Entry {
 	return logger.WithFields(logrus.Fields{
-		"module": moduleName,
-		"trace":  trace,
+		"trace": trace,
 	})
 }
 
 func TraceLog() string {
-	pc, file, line, _ := runtime.Caller(2)
-	return fmt.Sprintf("%s:%d %s\n", file, line, runtime.FuncForPC(pc).Name())
+	pc, _, _, _ := runtime.Caller(1)
+	return fmt.Sprintf("%s", runtime.FuncForPC(pc).Name())
 }

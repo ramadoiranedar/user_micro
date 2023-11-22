@@ -21,23 +21,21 @@ type Runtime struct {
 	Db  *gorm.DB
 }
 
-func InitRuntime() (runtime *Runtime) {
+func InitRuntime(configuration *viper.Viper, logger logrus.FieldLogger) (runtime *Runtime) {
 	var (
-		logger    = InitLogger()
-		config    = InitConfiguration(logger)
-		logFields = CreateLogFields(logger, "utilities-runtime", TraceLog())
+		logFields = CreateLogFields(logger, TraceLog())
 	)
 
-	logFields.Info("run runtime")
+	logFields.Info("setup runtime")
 
-	database, err := SetGormDbMysql(config, logger)
+	database, err := SetGormDbMysql(configuration, logger)
 	if err != nil {
 		logFields.Errorf("database connection error: %v", err)
 		os.Exit(1)
 	}
 
 	runtime = &Runtime{
-		Cfg: config,
+		Cfg: configuration,
 		Log: logger,
 		Db:  database,
 	}
@@ -58,7 +56,7 @@ func (rt *Runtime) Config() *viper.Viper {
 }
 
 func (rt *Runtime) RunMigration() {
-	CreateLogFields(rt.Log, "utilities-runtime", TraceLog()).
+	CreateLogFields(rt.Log, TraceLog()).
 		Info("run migration database")
 
 	rt.Db.AutoMigrate(
@@ -68,14 +66,14 @@ func (rt *Runtime) RunMigration() {
 }
 
 func (rt *Runtime) SetError(code int, msg string, args ...interface{}) error {
-	CreateLogFields(rt.Log, "utilities-runtime", TraceLog()).
+	CreateLogFields(rt.Log, TraceLog()).
 		Infof("%v", msg)
 
 	return errors.New(int32(code), msg)
 }
 
 func (rt *Runtime) GetError(err error) errors.Error {
-	CreateLogFields(rt.Log, "utilities-runtime", TraceLog()).
+	CreateLogFields(rt.Log, TraceLog()).
 		Errorf("%v", err)
 	if v, ok := err.(errors.Error); ok {
 		return v
@@ -85,7 +83,7 @@ func (rt *Runtime) GetError(err error) errors.Error {
 }
 
 func (rt *Runtime) Close() {
-	CreateLogFields(rt.Log, "utilities-runtime", TraceLog()).
+	CreateLogFields(rt.Log, TraceLog()).
 		Infof("%v", "runtime close")
 	// TODO: Close
 }

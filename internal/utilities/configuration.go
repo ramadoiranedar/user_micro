@@ -8,30 +8,25 @@ import (
 	"github.com/spf13/viper"
 )
 
-var FLAGS = struct {
-	AppConfig string `long:"config" description:"main application configuration YAML path"`
-}{}
-
-func InitConfiguration(logger logrus.FieldLogger) *viper.Viper {
+func InitConfiguration(logger logrus.FieldLogger, flagAppConfig string) *viper.Viper {
 	var (
-		logFields = CreateLogFields(logrus.StandardLogger(), "utilities-configuration", TraceLog())
+		logFields = CreateLogFields(logrus.StandardLogger(), TraceLog())
 	)
-	logFields.Info("init configuration")
+	logFields.Infof("setup configuration from %s", flagAppConfig)
 
-	cfg := viper.New()
-	cfg.SetConfigName(filepath.Base(FLAGS.AppConfig))
-	cfg.SetConfigType("yaml")
-	cfg.AddConfigPath(filepath.Dir(FLAGS.AppConfig))
-	cfg.AddConfigPath("./config/")
-	cfg.AddConfigPath("./etc/")
-	cfg.AddConfigPath("./")
+	config := viper.New()
+	config.SetConfigName(filepath.Base(flagAppConfig))
+	config.SetConfigType("yaml")
+	config.AddConfigPath(filepath.Dir(flagAppConfig))
+	config.AddConfigPath("./")
+	config.AddConfigPath("./etc/")
+	config.AddConfigPath("./configs/")
 
-	err := cfg.ReadInConfig()
+	err := config.ReadInConfig()
 	if err != nil {
-		logFields.Errorf("invalid app config at %s", FLAGS.AppConfig)
+		logFields.Error(err)
 		os.Exit(1)
 	}
 
-	logFields.Info("configuration app is ok")
-	return cfg
+	return config
 }

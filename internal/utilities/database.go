@@ -11,7 +11,7 @@ import (
 )
 
 func SetGormDbMysql(config *viper.Viper, log logrus.FieldLogger) (*gorm.DB, error) {
-	CreateLogFields(logrus.StandardLogger(), "utilities-database", TraceLog()).Info("init logger")
+	CreateLogFields(logrus.StandardLogger(), TraceLog()).Info("setup gorm database mysql")
 
 	dsn := GetGormDsnMysql(config)
 	return gorm.Open(mysql.Open(dsn), &gorm.Config{
