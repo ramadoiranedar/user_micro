@@ -22,7 +22,7 @@ func InitConfiguration(logger logrus.FieldLogger) *viper.Viper {
 	cfg.SetConfigName(filepath.Base(flags.AppConfig))
 	cfg.SetConfigType("yaml")
 	cfg.AddConfigPath(filepath.Dir(flags.AppConfig))
-	cfg.AddConfigPath("./configs/")
+	cfg.AddConfigPath("./config/")
 	cfg.AddConfigPath("./etc/")
 	cfg.AddConfigPath("./")
 
