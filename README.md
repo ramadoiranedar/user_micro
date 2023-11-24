@@ -7,17 +7,11 @@ Microservice designed to manage user entities within the Terasehat system. Provi
 ```
 ENDPOINT
 └── routing
-<<<<<<< Updated upstream
-    └── handlers
-        ├── usecases
-        └── repositories
-=======
     ├── handlers
     │   └── usecases
     │       └── repositories
     ├── constants
     └── utilities
->>>>>>> Stashed changes
 ```
 - **Endpoint:** Provides API endpoints for interacting with this microservice.
 
@@ -42,7 +36,7 @@ ENDPOINT
 ## Getting Started
 To get started with the User Microservice, follow the steps below:
 
-### Prerequisites **TODO
+### Prerequisites
 - Go >= v1.21
 - MySQL
 - Goswagger v2
@@ -57,20 +51,18 @@ To get started with the User Microservice, follow the steps below:
 
 ---
 
-## API Endpoints **TODO
+## API Endpoints
 Document the available API endpoints and their functionalities.
-- `POST /users`: Register a new user.
-- `POST /login`: Authenticate and log in a user.
-- ...
+- You can check the documentation API from `swagger.yaml` file at `./api` via swagger UI
 
 ---
 
-## Contributing **TODO
-If you'd like to contribute to the development of the User Microservice, please follow the guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
+## Contributing
+If you'd like to contribute to the development of the User Microservice, please follow the guidelines and existing code styles.
 
 ## License **TODO
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [Developer License](LICENSE).
 
-## Acknowledgments **TODO
+## Acknowledgments
 - Mention any contributors or libraries used in this project.
 - ...
