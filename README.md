@@ -7,11 +7,9 @@ Microservice designed to manage user entities within the Terasehat system. Provi
 ```
 ENDPOINT
 └── routing
-    ├── handlers
-    │   └── usecases
-    │       └── repositories
-    ├── constants
-    └── utilities
+    └── handlers
+        └── usecases
+            └── repositories
 ```
 - **Endpoint:** Provides API endpoints for interacting with this microservice.
 
