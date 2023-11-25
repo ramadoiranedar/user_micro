@@ -1,13 +1,8 @@
-# generated folder
-/gen/.
-/pkg/.
-/cmd/.
-
 # environtment configuration
 /config/app.yaml
 
 # programs
-rest-goswagger-api-server
+user-micro-server
 *.o
 *.a
 *.so
