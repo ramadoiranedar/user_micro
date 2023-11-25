@@ -1,8 +1,9 @@
-package utilities
+package user_micro
 
 import (
 	"os"
 
+	"github.com/ramadoiranedar/user_micro/internal/utilities"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
@@ -16,12 +17,12 @@ type runtimeApp struct {
 
 func NewRuntime(configuration *viper.Viper, logger logrus.FieldLogger) (r *runtimeApp) {
 	var (
-		logEntry = EntryLogTrace(logger, TraceLog())
+		logEntry = utilities.EntryLogTrace(logger, utilities.TraceLog())
 	)
 
 	logEntry.Info("setup runtime")
 
-	database, err := GetGormDbMysql(configuration, logger)
+	database, err := utilities.GetGormDbMysql(configuration, logger)
 	if err != nil {
 		logEntry.Errorf("database connection error: %v", err)
 		os.Exit(1)
@@ -52,13 +53,13 @@ func (r *runtimeApp) Config() *viper.Viper {
 }
 
 func (r *runtimeApp) Close() {
-	EntryLogTrace(r.logger, TraceLog()).
+	utilities.EntryLogTrace(r.logger, utilities.TraceLog()).
 		Infof("%v", "runtime close")
 	// TODO: Close at Runtime
 }
 
 func (r *runtimeApp) migrateDatabase() {
-	EntryLogTrace(r.logger, TraceLog()).
+	utilities.EntryLogTrace(r.logger, utilities.TraceLog()).
 		Info("run migration database")
 
 	r.database.AutoMigrate(
