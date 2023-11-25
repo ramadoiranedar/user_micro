@@ -61,7 +61,7 @@ new-server-custom: validate make-gen
 
 gen-custom: gen-server gen-client
 
-gen: validate make-gen
+gen: validate make-gen gen-client
 	swagger generate server --exclude-main -A user-micro-server -t ./gen  -f ./api/swagger.yaml --principal models.Principal
 	cp configure_user_micro_server.go.custom  gen/restapi/configure_user_micro_server.go
 
