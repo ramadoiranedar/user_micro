@@ -11,6 +11,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 	"github.com/sirupsen/logrus"
 
+	"github.com/ramadoiranedar/user_micro"
 	"github.com/ramadoiranedar/user_micro/gen/restapi"
 	"github.com/ramadoiranedar/user_micro/gen/restapi/operations"
 	"github.com/ramadoiranedar/user_micro/internal/handlers"
@@ -42,7 +43,7 @@ func main() {
 	}
 
 	config := utilities.NewConfiguration(logger, configureFlags.Config)
-	runtime := utilities.NewRuntime(config, logger)
+	runtime := user_micro.NewRuntime(config, logger)
 	defer runtime.Close()
 	defer server.Shutdown()
 
