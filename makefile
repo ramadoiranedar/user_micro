@@ -13,10 +13,10 @@ help:
 
 	@echo "make validate: validation OpenAPI swagger yaml file"
 
-	@echo "make init-server-default: [ONCE] init for the first time generate server default main.go file"
-	@echo "make init-server-custom: [ONCE] init for the first time generate server custom main.go file from ./main.go.dist"
+	@echo "make new-server-default: [ONCE] init for the first time generate server default main.go file"
+	@echo "make new-server-custom: [ONCE] init for the first time generate server custom main.go file from ./main.go.dist"
 
-	@echo "make gen: generate server and client after run the init-server"
+	@echo "make gen: generate server and client after run the new-server"
 	
 	@echo "make gen-server-configureapi: generate server excluding main.go file with regenerate configureapi"
 	@echo "make gen-server: generate server excluding main.go file without regenerate configureapi"
@@ -52,20 +52,18 @@ remove-executable-server:
 validate:
 	swagger validate ./api/swagger.yaml
 
-init-server-default: validate make-gen
+new-server-default: validate make-gen
 	swagger generate server --main-package=../../cmd/user-micro-server -A user-micro-server -t ./gen  -f ./api/swagger.yaml --principal models.Principal
 
-init-server-custom: validate make-gen
+new-server-custom: validate make-gen
 	swagger generate server --main-package=../../cmd/user-micro-server -A user-micro-server -t ./gen  -f ./api/swagger.yaml --principal models.Principal
-	cp main.go.dist cmd/user-micro-server/main.go
+	cp main.go.custom cmd/user-micro-server/main.go
 
-gen: clean gen-server-configureapi gen-client
+gen-custom: gen-server gen-client
 
-gen-server-configureapi: validate make-gen
-	swagger generate server --exclude-main --regenerate-configureapi -A user-micro-server -t ./gen  -f ./api/swagger.yaml --principal models.Principal
-
-gen-server: validate make-gen
+gen: validate make-gen
 	swagger generate server --exclude-main -A user-micro-server -t ./gen  -f ./api/swagger.yaml --principal models.Principal
+	cp configure_user_micro_server.go.custom  gen/restapi/configure_user_micro_server.go
 
 # Example:
 #		swagger generate client -A user-micro-server -f ./api/swagger.yaml -c pkg/client -m ./gen /models --principal models.Principal
