@@ -23,7 +23,7 @@ help:
 
 	@echo "make gen-client: generate client after generate server for this app and you can add more than one client for this"
 
-	@echo "make clean: cleaning or remove unused object, generated, cached files or folder"
+	@echo "make clean: go cleaning and remove existing executable file server"
 
 	@echo "make build: generate build file executable server"
 
@@ -73,7 +73,7 @@ gen-client: validate
 	swagger generate client -A user-micro-server -f ./api/swagger.yaml -c pkg/client/user_micro_api_client -m ./gen/models --principal models.Principal
 #	swagger generate client -A bpjs-server -f ./api/bpjs.yaml -c pkg/client/bpjs_client -m ./gen/model --principal models.Principal
 
-clean: remove-executable-server remove-gen remove-pkg
+clean: remove-executable-server
 	go clean -i .
 
 build:
