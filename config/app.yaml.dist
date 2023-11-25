@@ -1,0 +1,11 @@
+app:
+  name: "User Micro"
+  env: "development"
+example:
+  secret_code: "12345"
+db:
+  host: "127.0.0.1"
+  user: "root"
+  pass: ""
+  port: 3306
+  name: ""
