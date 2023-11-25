@@ -1,0 +1,9 @@
+package str
+
+const (
+	FIELD_TRACE        = `[TRACE]`
+	FIELD_ENDPOINT     = `[ENDPOINT]`
+	FIELD_REQUEST_BODY = `[REQUEST_BODY]`
+	FIELD_USER_AGENT   = `[USER_AGENT]`
+	FIELD_CLIENT_IPv4  = `[CLIENT_IPv4]`
+)
