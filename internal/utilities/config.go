@@ -8,11 +8,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-func InitConfiguration(logger logrus.FieldLogger, flagAppConfig string) *viper.Viper {
+func NewConfiguration(logger logrus.FieldLogger, flagAppConfig string) *viper.Viper {
 	var (
-		logFields = CreateLogFields(logrus.StandardLogger(), TraceLog())
+		logEntry = EntryLogTrace(logger, TraceLog())
 	)
-	logFields.Infof("setup configuration from %s", flagAppConfig)
+	logEntry.Infof("setup configuration from %s", flagAppConfig)
 
 	config := viper.New()
 	config.SetConfigName(filepath.Base(flagAppConfig))
@@ -24,7 +24,7 @@ func InitConfiguration(logger logrus.FieldLogger, flagAppConfig string) *viper.V
 
 	err := config.ReadInConfig()
 	if err != nil {
-		logFields.Error(err)
+		logEntry.Error(err)
 		os.Exit(1)
 	}
 
