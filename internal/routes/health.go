@@ -13,6 +13,15 @@ import (
 
 func healthRoute(logger logrus.FieldLogger, config *viper.Viper, api *operations.UserMicroServerAPI, h handlers.Handlers) {
 
+	/*
+	* Baseline code structure route
+	*	Please, following this code styles correctly
+	* make sure you when create function using DTO object from the handler layer
+	* and so on until the last layer repository. (eg. h.HealthCheckGetV1Health
+	* (params) using DTO health_check.GetV1HealthParams)
+	* and you can passing everything you need from route params above to handler
+	**/
+
 	// GET /api/v1/health
 	api.HealthCheckGetV1HealthHandler = health_check.GetV1HealthHandlerFunc(func(params health_check.GetV1HealthParams) middleware.Responder {
 		logEntry := utilities.EntryLogTraceEndpoint(logger, config, params.HTTPRequest, utilities.TraceLog())
