@@ -1,5 +1,36 @@
 # User Microservice
+
+## Version 1.2.0
+
 Microservice designed to manage user entities within the Terasehat system. Provides basic functionalities such as user registration, authentication, and user information management.
+
+## Contributing
+If you'd like to contribute to the development of the User Microservice, please follow the guidelines and existing code styles.
+
+### Basic Knowledge
+
+First, make sure you need to following the existing code styles and the architecture.
+
+- semantic versioning
+
+  - Perform semantic versioning when you make changes (major/minor/patch) to the source code by updating several files or text in: ./api/swagger.yaml, ./config/app.yaml, ./README.md
+
+  - And don't forget to update `git tag` versioning when you `push` your changes
+
+- create new endpoint
+
+  You can start to create a new endpoint by following this steps:
+  
+  - Define a new endpoint at `./api/swagger.yaml`.
+    - make sure when define response you need to use `results` as object for consumer this endpoint
+    - make sure when define request parameters and response you don't make a redundant parameter and must be useful information
+    - make sure you when create function using DTO object from the handler layer and so on until the last layer repository. (eg. h.HealthCheckGetV1Health(params) using DTO health_check.GetV1HealthParams)
+	  - and you can passing everything you need from route params above to handler
+  - Generate your new endpoint by the makefile command: `make gen`. And dont always remember **Don't Forget** to regenerate server and client goswagger After doing some changes at `swagger.yaml` file.
+  - Define a new route at `./internal/routes`. You can create new file for new module or feature (eg. registration, authentication, etc).
+  - Define a new handler at `./internal/handlers`. You can create new file for new module or feature (eg. registration, authentication, etc).
+  - If Needed. Define a new usecase at `./internal/usecases`. You can create new file for new module or feature (eg. registration, authentication, etc).
+  - If Needed. Define a new repository at `./internal/repositories`. You can create new file for new module or feature (eg. registration, authentication, migration, integration etc).
 
 ---
 
@@ -45,6 +76,31 @@ make run-api-doc: serve UI of API documenations Swagger OpenAPI
 ```
 ---
 
+## Branching
+
+Default branch:
+```
+├── main (production live)
+├── staging (development live)
+└── development (development local)
+```
+
+## Committing
+
+- Don't commit file contains some credentials!
+- commit format: [WORK_BRANCH][YOUR_UPDATED_VERSION][FEATURE/BUG/PATCH][TICKET_NUMBER][COMMIT_DESCRIPTION]
+- ...
+
+## Versioning
+
+Don't forget to always update `git tag` versioning when you `push` your changes:
+
+- `git tag` to check latest version
+- `git tag 1.2.0` to update your version
+- `git tag push origin WORK_BRANCH`
+
+---
+
 ## Architecture Layer
 ```
 ENDPOINT
@@ -65,49 +121,9 @@ ENDPOINT
 
 ---
 
-## Branching
-
-Default branch:
-```
-├── main (production live)
-├── staging (development live)
-└── development (development local)
-```
-
-## Committing ***TODO
-
-- Don't commit file contains some credentials!
-- ...
-
----
-
 ## API Endpoints
 Document the available API endpoints and their functionalities.
 - You can check the documentation API from `swagger.yaml` file at `./api` via swagger UI.
-
----
-
-## Contributing
-If you'd like to contribute to the development of the User Microservice, please follow the guidelines and existing code styles.
-
-### Basic Knowledge
-
-First, make sure you need to following the existing code styles and the architecture.
-
-- create new endpoint
-
-  You can start to create a new endpoint by following this steps:
-  
-  - Define a new endpoint at `./api/swagger.yaml`.
-    - make sure when define response you need to use `results` as object for consumer this endpoint
-    - make sure when define request parameters and response you don't make a redundant parameter and must be useful information
-    - make sure you when create function using DTO object from the handler layer and so on until the last layer repository. (eg. h.HealthCheckGetV1Health(params) using DTO health_check.GetV1HealthParams)
-	  - and you can passing everything you need from route params above to handler
-  - Generate your new endpoint by the makefile command: `make gen`. And dont always remember **Don't Forget** to regenerate server and client goswagger After doing some changes at `swagger.yaml` file.
-  - Define a new route at `./internal/routes`. You can create new file for new module or feature (eg. registration, authentication, etc).
-  - Define a new handler at `./internal/handlers`. You can create new file for new module or feature (eg. registration, authentication, etc).
-  - If Needed. Define a new usecase at `./internal/usecases`. You can create new file for new module or feature (eg. registration, authentication, etc).
-  - If Needed. Define a new repository at `./internal/repositories`. You can create new file for new module or feature (eg. registration, authentication, migration, integration etc).
 
 ---
 
