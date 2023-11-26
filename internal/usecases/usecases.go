@@ -7,20 +7,16 @@ import (
 	"github.com/spf13/viper"
 )
 
-type usecase struct {
-	logger       logrus.FieldLogger
-	config       *viper.Viper
-	repositories repositories.Repositories
+type UsecasesDTO struct {
+	Logger       logrus.FieldLogger
+	Config       *viper.Viper
+	Repositories repositories.Repositories
 }
 
-func NewUsecases(logger logrus.FieldLogger, config *viper.Viper, repositories repositories.Repositories) Usecases {
-	utilities.EntryLogTrace(logger, utilities.TraceLog()).Info("setup usecases")
+func NewUsecases(usecasesDTO UsecasesDTO) Usecases {
+	utilities.EntryLogTrace(usecasesDTO.Logger, utilities.TraceLog()).Info("setup usecases")
 
-	return &usecase{
-		logger:       logger,
-		config:       config,
-		repositories: repositories,
-	}
+	return &usecasesDTO
 }
 
 type Usecases interface {

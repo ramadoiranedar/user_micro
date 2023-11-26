@@ -47,31 +47,36 @@ func main() {
 	defer runtime.Close()
 	defer server.Shutdown()
 
-	repositories := repositories.NewRepositories(
-		runtime.Logger(),
-		runtime.Config(),
-		runtime.Database(),
-	)
+	repositories := repositories.NewRepositories(repositories.RepositoriesDTO{
+		Logger: runtime.Logger(),
+		Config: runtime.Config(),
+		Database: runtime.Database(),
+	})
 
-	usecases := usecases.NewUsecases(
-		runtime.Logger(),
-		runtime.Config(),
-		repositories,
-	)
+	usecases := usecases.NewUsecases(usecases.UsecasesDTO{
+		Logger: runtime.Logger(),
+		Config: runtime.Config(),
+		Repositories: repositories,
+	})
 
-	handlers := handlers.NewHandlers(
-		runtime.Logger(),
-		runtime.Config(),
-		usecases,
-	)
+	handlers := handlers.NewHandlers(handlers.HandlersDTO{
+		Logger: runtime.Logger(),
+		Config: runtime.Config(),
+		Usecases: usecases,
+	})
 
-	utilities.NewAuthorization(logger, config, api)
-	routes.SetRoutes(
-		runtime.Logger(), 
-		runtime.Config(), 
-		api, 
-		handlers,
-	)
+	utilities.NewAuthorization(utilities.AuthorizationDTO{
+		Logger: runtime.Logger(),
+		Config: runtime.Config(),
+		Api: api,
+	})
+
+	routes.SetRoutes(routes.RoutesDTO{
+		Logger: runtime.Logger(),
+		Config: runtime.Config(),
+		Api: api,
+		Handlers: handlers,
+	})
 
 	server.ConfigureAPI()
 	if err := server.Serve(); err != nil {

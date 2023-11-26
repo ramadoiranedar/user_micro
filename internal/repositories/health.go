@@ -10,9 +10,9 @@ type healthRepositories interface {
 	HealthCheckDatabase() (err error)
 }
 
-func (r *repository) HealthCheckDatabase() (err error) {
+func (r *RepositoriesDTO) HealthCheckDatabase() (err error) {
 	var dbVersion *string
-	if err = r.database.Raw("SELECT VERSION() AS version;").Scan(&dbVersion).Error; err != nil {
+	if err = r.Database.Raw("SELECT VERSION() AS version;").Scan(&dbVersion).Error; err != nil {
 		err = utilities.SetError(http.StatusNotFound, err.Error())
 		return
 	}

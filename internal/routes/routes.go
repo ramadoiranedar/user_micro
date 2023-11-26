@@ -8,9 +8,16 @@ import (
 	"github.com/spf13/viper"
 )
 
-func SetRoutes(logger logrus.FieldLogger, config *viper.Viper, api *operations.UserMicroServerAPI, apiHandler handlers.Handlers) {
-	utilities.EntryLogTrace(logger, utilities.TraceLog()).Info("setup routes")
+type RoutesDTO struct {
+	Logger   logrus.FieldLogger
+	Config   *viper.Viper
+	Api      *operations.UserMicroServerAPI
+	Handlers handlers.Handlers
+}
+
+func SetRoutes(routesDTO RoutesDTO) {
+	utilities.EntryLogTrace(routesDTO.Logger, utilities.TraceLog()).Info("setup routes")
 
 	// set all route here
-	healthRoute(logger, config, api, apiHandler)
+	healthRoute(routesDTO)
 }

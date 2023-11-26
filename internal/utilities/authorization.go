@@ -6,18 +6,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-type authorization struct {
-	logger logrus.FieldLogger
-	config *viper.Viper
-	api    *operations.UserMicroServerAPI
+type AuthorizationDTO struct {
+	Logger logrus.FieldLogger
+	Config *viper.Viper
+	Api    *operations.UserMicroServerAPI
 }
 
-func NewAuthorization(logger logrus.FieldLogger, config *viper.Viper, api *operations.UserMicroServerAPI) *authorization {
-	EntryLogTrace(logger, TraceLog()).Info("setup authorization")
+func NewAuthorization(authorizationDTO AuthorizationDTO) *AuthorizationDTO {
+	EntryLogTrace(authorizationDTO.Logger, TraceLog()).Info("setup authorization")
 
-	return &authorization{
-		logger: logger,
-		config: config,
-		api:    api,
-	}
+	return &authorizationDTO
 }
