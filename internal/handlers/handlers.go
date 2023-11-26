@@ -7,20 +7,16 @@ import (
 	"github.com/spf13/viper"
 )
 
-type handler struct {
-	logger   logrus.FieldLogger
-	config   *viper.Viper
-	usecases usecases.Usecases
+type HandlersDTO struct {
+	Logger   logrus.FieldLogger
+	Config   *viper.Viper
+	Usecases usecases.Usecases
 }
 
-func NewHandlers(logger logrus.FieldLogger, config *viper.Viper, usecases usecases.Usecases) Handlers {
-	utilities.EntryLogTrace(logger, utilities.TraceLog()).Info("setup handlers")
+func NewHandlers(handlersDTO HandlersDTO) Handlers {
+	utilities.EntryLogTrace(handlersDTO.Logger, utilities.TraceLog()).Info("setup handlers")
 
-	return &handler{
-		logger:   logger,
-		config:   config,
-		usecases: usecases,
-	}
+	return &handlersDTO
 }
 
 type Handlers interface {

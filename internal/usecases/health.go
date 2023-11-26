@@ -13,19 +13,19 @@ type healthUsecases interface {
 	HealthCheckServer() (results *models.HealthCheckResponseResults, err error)
 }
 
-func (u *usecase) HealthCheckServer() (results *models.HealthCheckResponseResults, err error) {
-	configKeys := u.config.AllKeys()
+func (u *UsecasesDTO) HealthCheckServer() (results *models.HealthCheckResponseResults, err error) {
+	configKeys := u.Config.AllKeys()
 	if len(configKeys) < 1 {
 		err = utilities.SetError(http.StatusInternalServerError, str.MSG_CONFIG_IS_ERROR)
 		return
 	}
 
-	if err = u.repositories.HealthCheckDatabase(); err != nil {
+	if err = u.Repositories.HealthCheckDatabase(); err != nil {
 		err = utilities.GetError(err)
 		return
 	}
 
-	constants := constants.NewConstants(u.config)
+	constants := constants.NewConstants(u.Config)
 
 	results = &models.HealthCheckResponseResults{
 		AppVersion:     constants.GetAppVersion(),

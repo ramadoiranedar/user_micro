@@ -7,20 +7,16 @@ import (
 	"gorm.io/gorm"
 )
 
-type repository struct {
-	logger   logrus.FieldLogger
-	config   *viper.Viper
-	database *gorm.DB
+type RepositoriesDTO struct {
+	Logger   logrus.FieldLogger
+	Config   *viper.Viper
+	Database *gorm.DB
 }
 
-func NewRepositories(logger logrus.FieldLogger, config *viper.Viper, database *gorm.DB) Repositories {
-	utilities.EntryLogTrace(logger, utilities.TraceLog()).Info("setup repositories")
+func NewRepositories(repositoriesDTO RepositoriesDTO) Repositories {
+	utilities.EntryLogTrace(repositoriesDTO.Logger, utilities.TraceLog()).Info("setup repositories")
 
-	return &repository{
-		logger:   logger,
-		config:   config,
-		database: database,
-	}
+	return &repositoriesDTO
 }
 
 type Repositories interface {

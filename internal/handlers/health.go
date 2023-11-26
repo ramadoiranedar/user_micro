@@ -13,8 +13,8 @@ type healthHandlers interface {
 	HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.HealthCheckResponse, err error)
 }
 
-func (h *handler) HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.HealthCheckResponse, err error) {
-	results, err := h.usecases.HealthCheckServer()
+func (h *HandlersDTO) HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.HealthCheckResponse, err error) {
+	results, err := h.Usecases.HealthCheckServer()
 	if err != nil {
 		err = utilities.GetError(err)
 		return
