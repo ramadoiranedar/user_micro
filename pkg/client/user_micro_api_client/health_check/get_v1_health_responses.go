@@ -112,7 +112,7 @@ GetV1HealthOK describes a response with status code 200, with default header val
 ok
 */
 type GetV1HealthOK struct {
-	Payload *models.BasicResponse
+	Payload *models.HealthCheckResponse
 }
 
 // IsSuccess returns true when this get v1 health o k response has a 2xx status code
@@ -153,13 +153,13 @@ func (o *GetV1HealthOK) String() string {
 	return fmt.Sprintf("[GET /v1/health][%d] getV1HealthOK  %+v", 200, o.Payload)
 }
 
-func (o *GetV1HealthOK) GetPayload() *models.BasicResponse {
+func (o *GetV1HealthOK) GetPayload() *models.HealthCheckResponse {
 	return o.Payload
 }
 
 func (o *GetV1HealthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.BasicResponse)
+	o.Payload = new(models.HealthCheckResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

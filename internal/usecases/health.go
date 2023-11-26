@@ -3,15 +3,17 @@ package usecases
 import (
 	"net/http"
 
+	"github.com/ramadoiranedar/user_micro/gen/models"
+	"github.com/ramadoiranedar/user_micro/internal/constants"
 	str "github.com/ramadoiranedar/user_micro/internal/constants/strings"
 	"github.com/ramadoiranedar/user_micro/internal/utilities"
 )
 
 type healthUsecases interface {
-	HealthCheckServer() (err error)
+	HealthCheckServer() (results *models.HealthCheckResponseResults, err error)
 }
 
-func (u *usecase) HealthCheckServer() (err error) {
+func (u *usecase) HealthCheckServer() (results *models.HealthCheckResponseResults, err error) {
 	configKeys := u.config.AllKeys()
 	if len(configKeys) < 1 {
 		err = utilities.SetError(http.StatusInternalServerError, str.MSG_CONFIG_IS_ERROR)
@@ -21,6 +23,15 @@ func (u *usecase) HealthCheckServer() (err error) {
 	if err = u.repositories.HealthCheckDatabase(); err != nil {
 		err = utilities.GetError(err)
 		return
+	}
+
+	constants := constants.NewConstants(u.config)
+
+	results = &models.HealthCheckResponseResults{
+		AppVersion:     constants.GetAppVersion(),
+		AppName:        constants.GetAppName(),
+		AppEnvironment: constants.GetAppEnvironment(),
+		AppMaxUploadMb: constants.GetAppMaxUploadMB(),
 	}
 
 	return

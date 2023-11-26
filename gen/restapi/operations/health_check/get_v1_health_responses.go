@@ -26,7 +26,7 @@ type GetV1HealthOK struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.BasicResponse `json:"body,omitempty"`
+	Payload *models.HealthCheckResponse `json:"body,omitempty"`
 }
 
 // NewGetV1HealthOK creates GetV1HealthOK with default headers values
@@ -36,13 +36,13 @@ func NewGetV1HealthOK() *GetV1HealthOK {
 }
 
 // WithPayload adds the payload to the get v1 health o k response
-func (o *GetV1HealthOK) WithPayload(payload *models.BasicResponse) *GetV1HealthOK {
+func (o *GetV1HealthOK) WithPayload(payload *models.HealthCheckResponse) *GetV1HealthOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get v1 health o k response
-func (o *GetV1HealthOK) SetPayload(payload *models.BasicResponse) {
+func (o *GetV1HealthOK) SetPayload(payload *models.HealthCheckResponse) {
 	o.Payload = payload
 }
 

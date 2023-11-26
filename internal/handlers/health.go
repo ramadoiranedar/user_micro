@@ -10,18 +10,20 @@ import (
 )
 
 type healthHandlers interface {
-	HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.BasicResponse, err error)
+	HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.HealthCheckResponse, err error)
 }
 
-func (h *handler) HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.BasicResponse, err error) {
-	if err = h.usecases.HealthCheckServer(); err != nil {
+func (h *handler) HealthCheckGetV1Health(params health_check.GetV1HealthParams) (response *models.HealthCheckResponse, err error) {
+	results, err := h.usecases.HealthCheckServer()
+	if err != nil {
 		err = utilities.GetError(err)
 		return
 	}
 
-	response = &models.BasicResponse{
+	response = &models.HealthCheckResponse{
 		Code:    http.StatusOK,
 		Message: str.MSG_OK,
+		Results: results,
 	}
 
 	return

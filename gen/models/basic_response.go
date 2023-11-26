@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// BasicResponse definition for basic response code & message when request to endpoint was successful
+// BasicResponse definition for basic response code & message when request to endpoint was successfull
 //
 // swagger:model basicResponse
 type BasicResponse struct {

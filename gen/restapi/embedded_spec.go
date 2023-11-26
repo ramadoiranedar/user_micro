@@ -32,7 +32,7 @@ func init() {
   "info": {
     "description": "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform",
     "title": "REST API for TERASEHAT User Microservice",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "host": "localhost:8080",
   "basePath": "/api",
@@ -49,7 +49,7 @@ func init() {
           "200": {
             "description": "ok",
             "schema": {
-              "$ref": "#/definitions/basicResponse"
+              "$ref": "#/definitions/healthCheckResponse"
             }
           },
           "201": {
@@ -124,7 +124,7 @@ func init() {
   },
   "definitions": {
     "basicResponse": {
-      "description": "definition for basic response code \u0026 message when request to endpoint was successful",
+      "description": "definition for basic response code \u0026 message when request to endpoint was successfull",
       "type": "object",
       "properties": {
         "code": {
@@ -134,6 +134,39 @@ func init() {
         },
         "message": {
           "type": "string",
+          "x-omitempty": false
+        }
+      }
+    },
+    "healthCheckResponse": {
+      "description": "definition for health response with code \u0026 message when request to endpoint was successfull",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "x-omitempty": false
+        },
+        "message": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "results": {
+          "type": "object",
+          "properties": {
+            "app_environment": {
+              "type": "string"
+            },
+            "app_max_upload_mb": {
+              "type": "integer"
+            },
+            "app_name": {
+              "type": "string"
+            },
+            "app_version": {
+              "type": "string"
+            }
+          },
           "x-omitempty": false
         }
       }
@@ -155,7 +188,7 @@ func init() {
   "info": {
     "description": "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform",
     "title": "REST API for TERASEHAT User Microservice",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "host": "localhost:8080",
   "basePath": "/api",
@@ -172,7 +205,7 @@ func init() {
           "200": {
             "description": "ok",
             "schema": {
-              "$ref": "#/definitions/basicResponse"
+              "$ref": "#/definitions/healthCheckResponse"
             }
           },
           "201": {
@@ -246,8 +279,26 @@ func init() {
     }
   },
   "definitions": {
+    "HealthCheckResponseResults": {
+      "type": "object",
+      "properties": {
+        "app_environment": {
+          "type": "string"
+        },
+        "app_max_upload_mb": {
+          "type": "integer"
+        },
+        "app_name": {
+          "type": "string"
+        },
+        "app_version": {
+          "type": "string"
+        }
+      },
+      "x-omitempty": false
+    },
     "basicResponse": {
-      "description": "definition for basic response code \u0026 message when request to endpoint was successful",
+      "description": "definition for basic response code \u0026 message when request to endpoint was successfull",
       "type": "object",
       "properties": {
         "code": {
@@ -257,6 +308,39 @@ func init() {
         },
         "message": {
           "type": "string",
+          "x-omitempty": false
+        }
+      }
+    },
+    "healthCheckResponse": {
+      "description": "definition for health response with code \u0026 message when request to endpoint was successfull",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "x-omitempty": false
+        },
+        "message": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "results": {
+          "type": "object",
+          "properties": {
+            "app_environment": {
+              "type": "string"
+            },
+            "app_max_upload_mb": {
+              "type": "integer"
+            },
+            "app_name": {
+              "type": "string"
+            },
+            "app_version": {
+              "type": "string"
+            }
+          },
           "x-omitempty": false
         }
       }
