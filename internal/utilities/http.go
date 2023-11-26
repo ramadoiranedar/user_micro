@@ -33,7 +33,7 @@ func GetClientIPv4(request *http.Request) (ip string, err error) {
 	return
 }
 
-func ReadRequestBodyApplicationJson(r *http.Request, c constants.Constants) (result string) {
+func readRequestBodyForLogger(r *http.Request, c constants.Constants) (result string) {
 	result = "parse body only content-type: [application/json, multipart/form-data]"
 
 	contentType := r.Header.Get("Content-Type")

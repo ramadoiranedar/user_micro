@@ -37,7 +37,7 @@ func EntryLogTraceEndpoint(logger logrus.FieldLogger, config *viper.Viper, reque
 	return EntryLogTrace(logrus.StandardLogger(), trace).WithFields(logrus.Fields{
 		str.FIELD_TRACE:        trace,
 		str.FIELD_ENDPOINT:     fmt.Sprintf("%s %s", request.Method, request.URL),
-		str.FIELD_REQUEST_BODY: ReadRequestBodyApplicationJson(request, constants),
+		str.FIELD_REQUEST_BODY: readRequestBodyForLogger(request, constants),
 		str.FIELD_USER_AGENT:   request.UserAgent(),
 	})
 }
