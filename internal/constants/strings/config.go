@@ -13,6 +13,8 @@ const (
 const (
 	CONFIG_APP_VERSION       = `app.version`
 	CONFIG_APP_NAME          = `app.name`
+	CONFIG_APP_DESCRIPTION   = `app.description`
+	CONFIG_APP_COPYRIGHT     = `app.copyright`
 	CONFIG_APP_ENVIRONMENT   = `app.env`
 	CONFIG_APP_MAX_UPLOAD_MB = `app.max_upload_mb`
 )

@@ -30,9 +30,9 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform",
+    "description": "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform.",
     "title": "REST API for TERASEHAT User Microservice",
-    "version": "1.2.0"
+    "version": "1.2.2"
   },
   "host": "localhost:8080",
   "basePath": "/api",
@@ -154,6 +154,12 @@ func init() {
         "results": {
           "type": "object",
           "properties": {
+            "app_copyright": {
+              "type": "string"
+            },
+            "app_description": {
+              "type": "string"
+            },
             "app_environment": {
               "type": "string"
             },
@@ -168,6 +174,251 @@ func init() {
             }
           },
           "x-omitempty": false
+        }
+      }
+    },
+    "modelBirthdate": {
+      "type": "integer",
+      "format": "uint64",
+      "x-go-custom-tag": "gorm:\"type:int;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelEmail": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);unique;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelFullname": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelGender": {
+      "type": "string",
+      "maxLength": 16,
+      "enum": [
+        "male",
+        "female"
+      ],
+      "x-go-custom-tag": "gorm:\"type:varchar(16);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelIdentifier": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-custom-tag": "gorm:\"type:int;autoIncrement;primaryKey\"",
+          "x-nullable": false,
+          "x-omitempty": false
+        }
+      }
+    },
+    "modelPassword": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelRoleDescription": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);unique;null;\"",
+      "x-nullable": true,
+      "x-omitempty": false
+    },
+    "modelRoleIds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "uint64"
+      },
+      "x-go-custom-tag": "gorm:\"type:column:role_ids;type:integer[];\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelRoleName": {
+      "type": "string",
+      "maxLength": 128,
+      "x-go-custom-tag": "gorm:\"type:varchar(128);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelRoleSlug": {
+      "type": "string",
+      "maxLength": 128,
+      "x-go-custom-tag": "gorm:\"type:varchar(128);unique;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelTokenForgotPassword": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);null;\"",
+      "x-nullable": true,
+      "x-omitempty": false
+    },
+    "modelTraceLastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "last_modified_by": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-custom-tag": "gorm:\"type:int;default:null;\"",
+          "x-nullable": true,
+          "x-omitempty": false
+        }
+      }
+    },
+    "modelTraceTime": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "integer",
+          "format": "date-time",
+          "x-go-custom-tag": "gorm:\"type:int;autoCreateTime;\"",
+          "x-nullable": false,
+          "x-omitempty": false
+        },
+        "deleted_at": {
+          "type": "object",
+          "x-go-type": {
+            "hints": {
+              "kind": "interface"
+            },
+            "import": {
+              "package": "gorm.io/plugin/soft_delete"
+            },
+            "type": "DeletedAt"
+          },
+          "x-nullable": true,
+          "x-omitempty": false
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "date-time",
+          "x-go-custom-tag": "gorm:\"type:int;autoUpdateTime;\"",
+          "x-nullable": true,
+          "x-omitempty": false
+        }
+      }
+    },
+    "modelUsername": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);unique;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "role": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        {
+          "$ref": "#/definitions/modelTraceTime"
+        },
+        {
+          "$ref": "#/definitions/modelTraceLastModifiedBy"
+        },
+        {
+          "$ref": "#/definitions/roleData"
+        }
+      ],
+      "x-omitempty": false
+    },
+    "roleData": {
+      "type": "object",
+      "required": [
+        "name",
+        "slug"
+      ],
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/modelRoleDescription"
+        },
+        "name": {
+          "$ref": "#/definitions/modelRoleName"
+        },
+        "slug": {
+          "$ref": "#/definitions/modelRoleSlug"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        {
+          "$ref": "#/definitions/modelTraceTime"
+        },
+        {
+          "$ref": "#/definitions/modelTraceLastModifiedBy"
+        },
+        {
+          "$ref": "#/definitions/userData"
+        }
+      ],
+      "x-omitempty": false
+    },
+    "userData": {
+      "type": "object",
+      "required": [
+        "role_ids",
+        "email",
+        "username",
+        "password",
+        "fullname",
+        "gender",
+        "birthdate"
+      ],
+      "properties": {
+        "birthdate": {
+          "$ref": "#/definitions/modelBirthdate"
+        },
+        "email": {
+          "$ref": "#/definitions/modelEmail"
+        },
+        "fullname": {
+          "$ref": "#/definitions/modelFullname"
+        },
+        "gender": {
+          "$ref": "#/definitions/modelGender"
+        },
+        "password": {
+          "$ref": "#/definitions/modelPassword"
+        },
+        "role_ids": {
+          "$ref": "#/definitions/modelRoleIds"
+        },
+        "roles": {
+          "x-go-custom-tag": "gorm:\"many2many:user_roles;\"",
+          "$ref": "#/definitions/role"
+        },
+        "token_forgot_password": {
+          "$ref": "#/definitions/modelTokenForgotPassword"
+        },
+        "user": {
+          "x-go-custom-tag": "gorm:\"foreignKey:foreignKey:last_modified_by;\"",
+          "$ref": "#/definitions/user"
+        },
+        "username": {
+          "$ref": "#/definitions/modelUsername"
         }
       }
     }
@@ -186,9 +437,9 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform",
+    "description": "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform.",
     "title": "REST API for TERASEHAT User Microservice",
-    "version": "1.2.0"
+    "version": "1.2.2"
   },
   "host": "localhost:8080",
   "basePath": "/api",
@@ -282,6 +533,12 @@ func init() {
     "HealthCheckResponseResults": {
       "type": "object",
       "properties": {
+        "app_copyright": {
+          "type": "string"
+        },
+        "app_description": {
+          "type": "string"
+        },
         "app_environment": {
           "type": "string"
         },
@@ -328,6 +585,12 @@ func init() {
         "results": {
           "type": "object",
           "properties": {
+            "app_copyright": {
+              "type": "string"
+            },
+            "app_description": {
+              "type": "string"
+            },
             "app_environment": {
               "type": "string"
             },
@@ -342,6 +605,251 @@ func init() {
             }
           },
           "x-omitempty": false
+        }
+      }
+    },
+    "modelBirthdate": {
+      "type": "integer",
+      "format": "uint64",
+      "x-go-custom-tag": "gorm:\"type:int;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelEmail": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);unique;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelFullname": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelGender": {
+      "type": "string",
+      "maxLength": 16,
+      "enum": [
+        "male",
+        "female"
+      ],
+      "x-go-custom-tag": "gorm:\"type:varchar(16);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelIdentifier": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-custom-tag": "gorm:\"type:int;autoIncrement;primaryKey\"",
+          "x-nullable": false,
+          "x-omitempty": false
+        }
+      }
+    },
+    "modelPassword": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelRoleDescription": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);unique;null;\"",
+      "x-nullable": true,
+      "x-omitempty": false
+    },
+    "modelRoleIds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "uint64"
+      },
+      "x-go-custom-tag": "gorm:\"type:column:role_ids;type:integer[];\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelRoleName": {
+      "type": "string",
+      "maxLength": 128,
+      "x-go-custom-tag": "gorm:\"type:varchar(128);not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelRoleSlug": {
+      "type": "string",
+      "maxLength": 128,
+      "x-go-custom-tag": "gorm:\"type:varchar(128);unique;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "modelTokenForgotPassword": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);null;\"",
+      "x-nullable": true,
+      "x-omitempty": false
+    },
+    "modelTraceLastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "last_modified_by": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-custom-tag": "gorm:\"type:int;default:null;\"",
+          "x-nullable": true,
+          "x-omitempty": false
+        }
+      }
+    },
+    "modelTraceTime": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "integer",
+          "format": "date-time",
+          "x-go-custom-tag": "gorm:\"type:int;autoCreateTime;\"",
+          "x-nullable": false,
+          "x-omitempty": false
+        },
+        "deleted_at": {
+          "type": "object",
+          "x-go-type": {
+            "hints": {
+              "kind": "interface"
+            },
+            "import": {
+              "package": "gorm.io/plugin/soft_delete"
+            },
+            "type": "DeletedAt"
+          },
+          "x-nullable": true,
+          "x-omitempty": false
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "date-time",
+          "x-go-custom-tag": "gorm:\"type:int;autoUpdateTime;\"",
+          "x-nullable": true,
+          "x-omitempty": false
+        }
+      }
+    },
+    "modelUsername": {
+      "type": "string",
+      "maxLength": 255,
+      "x-go-custom-tag": "gorm:\"type:varchar(255);unique;not null;\"",
+      "x-nullable": false,
+      "x-omitempty": false
+    },
+    "role": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        {
+          "$ref": "#/definitions/modelTraceTime"
+        },
+        {
+          "$ref": "#/definitions/modelTraceLastModifiedBy"
+        },
+        {
+          "$ref": "#/definitions/roleData"
+        }
+      ],
+      "x-omitempty": false
+    },
+    "roleData": {
+      "type": "object",
+      "required": [
+        "name",
+        "slug"
+      ],
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/modelRoleDescription"
+        },
+        "name": {
+          "$ref": "#/definitions/modelRoleName"
+        },
+        "slug": {
+          "$ref": "#/definitions/modelRoleSlug"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/modelIdentifier"
+        },
+        {
+          "$ref": "#/definitions/modelTraceTime"
+        },
+        {
+          "$ref": "#/definitions/modelTraceLastModifiedBy"
+        },
+        {
+          "$ref": "#/definitions/userData"
+        }
+      ],
+      "x-omitempty": false
+    },
+    "userData": {
+      "type": "object",
+      "required": [
+        "role_ids",
+        "email",
+        "username",
+        "password",
+        "fullname",
+        "gender",
+        "birthdate"
+      ],
+      "properties": {
+        "birthdate": {
+          "$ref": "#/definitions/modelBirthdate"
+        },
+        "email": {
+          "$ref": "#/definitions/modelEmail"
+        },
+        "fullname": {
+          "$ref": "#/definitions/modelFullname"
+        },
+        "gender": {
+          "$ref": "#/definitions/modelGender"
+        },
+        "password": {
+          "$ref": "#/definitions/modelPassword"
+        },
+        "role_ids": {
+          "$ref": "#/definitions/modelRoleIds"
+        },
+        "roles": {
+          "x-go-custom-tag": "gorm:\"many2many:user_roles;\"",
+          "$ref": "#/definitions/role"
+        },
+        "token_forgot_password": {
+          "$ref": "#/definitions/modelTokenForgotPassword"
+        },
+        "user": {
+          "x-go-custom-tag": "gorm:\"foreignKey:foreignKey:last_modified_by;\"",
+          "$ref": "#/definitions/user"
+        },
+        "username": {
+          "$ref": "#/definitions/modelUsername"
         }
       }
     }

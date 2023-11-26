@@ -119,6 +119,12 @@ func (m *HealthCheckResponse) UnmarshalBinary(b []byte) error {
 // swagger:model HealthCheckResponseResults
 type HealthCheckResponseResults struct {
 
+	// app copyright
+	AppCopyright string `json:"app_copyright,omitempty"`
+
+	// app description
+	AppDescription string `json:"app_description,omitempty"`
+
 	// app environment
 	AppEnvironment string `json:"app_environment,omitempty"`
 

@@ -1,4 +1,4 @@
-# User Microservice (v1.2.3)
+# User Microservice (v1.3.1)
 
 Microservice designed to manage user entities within the Terasehat system. Provides basic functionalities such as user registration, authentication, and user information management.
 

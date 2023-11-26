@@ -30,6 +30,8 @@ func (u *UsecasesDTO) HealthCheckServer() (results *models.HealthCheckResponseRe
 	results = &models.HealthCheckResponseResults{
 		AppVersion:     constants.GetAppVersion(),
 		AppName:        constants.GetAppName(),
+		AppDescription: constants.GetAppDescription(),
+		AppCopyright:   constants.GetAppCopyright(),
 		AppEnvironment: constants.GetAppEnvironment(),
 		AppMaxUploadMb: constants.GetAppMaxUploadMB(),
 	}

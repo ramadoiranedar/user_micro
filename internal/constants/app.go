@@ -5,6 +5,8 @@ import str "github.com/ramadoiranedar/user_micro/internal/constants/strings"
 type constantsApp interface {
 	GetAppVersion() string
 	GetAppName() string
+	GetAppDescription() string
+	GetAppCopyright() string
 	GetAppEnvironment() string
 	GetAppMaxUploadMB() int64
 }
@@ -15,6 +17,14 @@ func (c *constant) GetAppVersion() string {
 
 func (c *constant) GetAppName() string {
 	return c.config.GetString(str.CONFIG_APP_NAME)
+}
+
+func (c *constant) GetAppDescription() string {
+	return c.config.GetString(str.CONFIG_APP_DESCRIPTION)
+}
+
+func (c *constant) GetAppCopyright() string {
+	return c.config.GetString(str.CONFIG_APP_COPYRIGHT)
 }
 
 func (c *constant) GetAppEnvironment() string {

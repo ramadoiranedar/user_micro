@@ -51,7 +51,7 @@ func NewUserMicroServerAPI(spec *loads.Document) *UserMicroServerAPI {
 	}
 }
 
-/*UserMicroServerAPI The "REST API for TERASEHAT User Microservice" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform */
+/*UserMicroServerAPI The "REST API for TERASEHAT User Microservice" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform. */
 type UserMicroServerAPI struct {
 	spec            *loads.Document
 	context         *middleware.Context

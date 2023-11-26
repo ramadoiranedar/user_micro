@@ -3,7 +3,7 @@
 # please make sure naming of the components based on definition object name and follow the code style
 swagger: "2.0"
 info:
-  description: "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform"
+  description: "The \"REST API for TERASEHAT User Microservice\" refers to the Representational State Transfer (REST) Application Programming Interface (API) specifically tailored for the User Microservice within TERASEHAT. This API facilitates communication and interaction with the User Microservice, allowing external applications or services to execute operations related to user management within the TERASEHAT system. The API includes endpoints for user registration, authentication, and other user-related functionalities, following RESTful principles to ensure scalability and interoperability as a web service for the TERASEHAT platform."
   title: "REST API for TERASEHAT User Microservice"
   version: "1.2.2"
 produces:
@@ -82,6 +82,7 @@ paths:
 
 # --definitions
 definitions:
+  # start of responses
   basicResponse:
     description: definition for basic response code & message when request to endpoint was successfull
     type: object
@@ -110,11 +111,198 @@ definitions:
         properties: 
           app_name:
             type: string
+          app_description:
+            type: string
+          app_copyright:
+            type: string
           app_version:
             type: string
           app_environment:
             type: string
           app_max_upload_mb:
             type: integer
+  # ./end of responses
 
-  
+  # start of models
+  modelIdentifier:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: uint64
+        x-nullable: false
+        x-omitempty: false
+        x-go-custom-tag: gorm:"type:int;autoIncrement;primaryKey"
+  modelTraceTime:
+    type: object
+    properties:
+      created_at:
+        type: integer
+        format: date-time
+        x-nullable: false
+        x-omitempty: false
+        x-go-custom-tag: gorm:"type:int;autoCreateTime;"
+      updated_at:
+        type: integer
+        format: date-time
+        x-nullable: true
+        x-omitempty: false
+        x-go-custom-tag: gorm:"type:int;autoUpdateTime;"
+      deleted_at:
+        type: object
+        x-nullable: true
+        x-omitempty: false
+        x-go-type:
+          type: DeletedAt
+          import:
+            package: gorm.io/plugin/soft_delete
+          hints:
+            kind: interface
+  modelTraceLastModifiedBy:
+    type: object
+    properties:
+      last_modified_by:
+        type: integer
+        format: uint64
+        x-go-custom-tag: gorm:"type:int;default:null;"
+        x-nullable: true
+        x-omitempty: false
+  modelEmail:
+    type: string
+    format: email
+    x-go-custom-tag: gorm:"type:varchar(255);unique;not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 255
+  modelUsername:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(255);unique;not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 255
+  modelPassword:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(255);not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 255
+  modelFullname:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(255);not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 255
+  modelGender:
+    type: string
+    enum:
+      - male
+      - female
+    x-go-custom-tag: gorm:"type:varchar(16);not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 16
+  modelBirthdate:
+    type: integer
+    format: uint64
+    x-go-custom-tag: gorm:"type:int;not null;"
+    x-omitempty: false
+    x-nullable: false
+  modelTokenForgotPassword:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(255);null;"
+    x-omitempty: false
+    x-nullable: true
+    maxLength: 255
+  modelRoleName:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(128);not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 128
+  modelRoleSlug:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(128);unique;not null;"
+    x-omitempty: false
+    x-nullable: false
+    maxLength: 128
+  modelRoleDescription:
+    type: string
+    x-go-custom-tag: gorm:"type:varchar(255);unique;null;"
+    x-omitempty: false
+    x-nullable: true
+    maxLength: 255
+  modelRoleIds:
+    type: array
+    items:
+      type: integer
+      format: uint64
+    x-go-custom-tag: gorm:"type:column:role_ids;type:integer[];"
+    x-omitempty: false
+    x-nullable: false
+  user:
+    type: object
+    x-omitempty: false
+    allOf:
+      - $ref: "#/definitions/modelIdentifier"
+      - $ref: "#/definitions/modelTraceTime"
+      - $ref: "#/definitions/modelTraceLastModifiedBy"
+      - $ref: "#/definitions/userData"
+  userData:
+    type: object
+    required:
+      - role_ids
+      - email
+      - username
+      - password
+      - fullname
+      - gender
+      - birthdate
+    properties:
+      user:
+        $ref: '#/definitions/user'
+        x-go-custom-tag: gorm:"foreignKey:foreignKey:last_modified_by;"
+      roles:
+        $ref: '#/definitions/role'
+        x-go-custom-tag: gorm:"many2many:user_roles;"
+      role_ids:
+        $ref: '#/definitions/modelRoleIds'
+      email:
+        $ref: '#/definitions/modelEmail'
+      username:
+        $ref: '#/definitions/modelUsername'
+      password:
+        $ref: '#/definitions/modelPassword'
+      fullname:
+        $ref: '#/definitions/modelFullname'
+      gender:
+        $ref: '#/definitions/modelGender'
+      birthdate:
+        $ref: '#/definitions/modelBirthdate'
+      token_forgot_password:
+        $ref: '#/definitions/modelTokenForgotPassword'
+  role:
+    type: object
+    x-omitempty: false
+    allOf:
+      - $ref: "#/definitions/modelIdentifier"
+      - $ref: "#/definitions/modelTraceTime"
+      - $ref: "#/definitions/modelTraceLastModifiedBy"
+      - $ref: "#/definitions/roleData"
+  roleData:
+    type: object
+    required:
+      - name
+      - slug
+    properties:
+      name:
+        $ref: '#/definitions/modelRoleName'
+      slug:
+        $ref: '#/definitions/modelRoleSlug'
+      description:
+        $ref: '#/definitions/modelRoleDescription'
+  # ./end of models
+
+  # start of models data
+  # ./end of models data
