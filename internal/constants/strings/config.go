@@ -11,7 +11,9 @@ const (
 
 // config app
 const (
-	CONFIG_APP_NAME = `app.name`
+	CONFIG_APP_NAME          = `app.name`
+	CONFIG_APP_ENVIRONMENT   = `app.env`
+	CONFIG_APP_MAX_UPLOAD_MB = `app.max_upload_mb`
 )
 
 // config foo

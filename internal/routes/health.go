@@ -15,7 +15,7 @@ func healthRoute(logger logrus.FieldLogger, config *viper.Viper, api *operations
 
 	// GET /api/v1/health
 	api.HealthCheckGetV1HealthHandler = health_check.GetV1HealthHandlerFunc(func(params health_check.GetV1HealthParams) middleware.Responder {
-		logEntry := utilities.EntryLogTraceEndpoint(logger, params.HTTPRequest, utilities.TraceLog())
+		logEntry := utilities.EntryLogTraceEndpoint(logger, config, params.HTTPRequest, utilities.TraceLog())
 
 		response, err := h.HealthCheckGetV1Health(params)
 		if err != nil {

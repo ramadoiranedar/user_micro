@@ -1,6 +1,7 @@
 app:
   name: "User Micro"
   env: "development"
+  max_upload_mb: 10 # 10MB
 example:
   secret_code: "12345"
 db:

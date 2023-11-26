@@ -5,8 +5,10 @@ import (
 	"net/http"
 	"runtime"
 
+	"github.com/ramadoiranedar/user_micro/internal/constants"
 	str "github.com/ramadoiranedar/user_micro/internal/constants/strings"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 func NewLogger() logrus.FieldLogger {
@@ -29,11 +31,13 @@ func EntryLogTrace(logger logrus.FieldLogger, trace interface{}) *logrus.Entry {
 	return logger.WithField(str.FIELD_TRACE, trace)
 }
 
-func EntryLogTraceEndpoint(logger logrus.FieldLogger, request *http.Request, trace interface{}) *logrus.Entry {
+func EntryLogTraceEndpoint(logger logrus.FieldLogger, config *viper.Viper, request *http.Request, trace interface{}) *logrus.Entry {
+	constants := constants.NewConstants(config)
+
 	return EntryLogTrace(logrus.StandardLogger(), trace).WithFields(logrus.Fields{
 		str.FIELD_TRACE:        trace,
 		str.FIELD_ENDPOINT:     fmt.Sprintf("%s %s", request.Method, request.URL),
-		str.FIELD_REQUEST_BODY: ReadRequestBodyApplicationJson(request),
+		str.FIELD_REQUEST_BODY: ReadRequestBodyApplicationJson(request, constants),
 		str.FIELD_USER_AGENT:   request.UserAgent(),
 	})
 }

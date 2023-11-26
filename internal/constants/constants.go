@@ -15,4 +15,5 @@ func NewConstants(config *viper.Viper) Constants {
 type Constants interface {
 	// Implement a new constant below
 	constantsDb
+	constantsApp
 }
