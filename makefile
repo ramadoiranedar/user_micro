@@ -30,6 +30,7 @@ help:
 	@echo "make run: serve REST API by the executable file server"
 	@echo "make run-dev: run the server for development without build the file executable server"
 	@echo "make all-dev: for easy generate all and run server for development"
+	@echo "make all: for easy generate all and run server for staging/production"
 
 	@echo "make run-api-doc: serve UI of API documenations Swagger OpenAPI"
 	@echo "----------------------------------------------------------------------------------------------------------------"
@@ -86,6 +87,8 @@ run-dev:
 	go run ./cmd/user-micro-server/main.go --config=./config/app.yaml --host=0.0.0.0 --port=8080
 
 all-dev: gen build run-dev
+
+all: gen build run
 
 run-api-doc: validate
 	swagger serve api/swagger.yaml --no-open --host=0.0.0.0 --port=8081 --base-path=/

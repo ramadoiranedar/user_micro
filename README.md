@@ -10,6 +10,7 @@ To get started with the User Microservice, follow the steps below:
 - Go >= v1.21
 - MySQL
 - Goswagger v2
+- GNU make (Makefile)
 - Dependencies
 
 ### Installation **TODO
