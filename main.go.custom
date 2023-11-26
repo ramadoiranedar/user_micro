@@ -65,7 +65,7 @@ func main() {
 		Usecases: usecases,
 	})
 
-	utilities.NewAuthorization(utilities.AuthorizationDTO{
+	utilities.SetAuthorization(utilities.AuthorizationDTO{
 		Logger: runtime.Logger(),
 		Config: runtime.Config(),
 		Api: api,
