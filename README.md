@@ -101,6 +101,8 @@ First, make sure you need to following the existing code styles and the architec
   - Define a new endpoint at `./api/swagger.yaml`.
     - make sure when define response you need to use `results` as object for consumer this endpoint
     - make sure when define request parameters and response you don't make a redundant parameter and must be useful information
+    - make sure you when create function using DTO object from the handler layer and so on until the last layer repository. (eg. h.HealthCheckGetV1Health(params) using DTO health_check.GetV1HealthParams)
+	  - and you can passing everything you need from route params above to handler
   - Generate your new endpoint by the makefile command: `make gen`. And dont always remember **Don't Forget** to regenerate server and client goswagger After doing some changes at `swagger.yaml` file.
   - Define a new route at `./internal/routes`. You can create new file for new module or feature (eg. registration, authentication, etc).
   - Define a new handler at `./internal/handlers`. You can create new file for new module or feature (eg. registration, authentication, etc).
