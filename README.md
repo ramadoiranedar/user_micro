@@ -1,6 +1,6 @@
 # User Microservice
 
-## Version 1.2.1
+## Version 1.2.2
 
 Microservice designed to manage user entities within the Terasehat system. Provides basic functionalities such as user registration, authentication, and user information management.
 

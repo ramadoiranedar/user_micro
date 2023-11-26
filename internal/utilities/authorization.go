@@ -12,7 +12,7 @@ type AuthorizationDTO struct {
 	Api    *operations.UserMicroServerAPI
 }
 
-func NewAuthorization(authorizationDTO AuthorizationDTO) *AuthorizationDTO {
+func SetAuthorization(authorizationDTO AuthorizationDTO) *AuthorizationDTO {
 	EntryLogTrace(authorizationDTO.Logger, TraceLog()).Info("setup authorization")
 
 	return &authorizationDTO
